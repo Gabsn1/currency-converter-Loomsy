@@ -6,6 +6,7 @@ class Currency:
         self.root = root
         self.root.title("Währungsumrechner")
         root.geometry("300x300")
+        self.language="Deutsch"
 
         self.optionen = {
             "EUR": 1,
@@ -15,8 +16,8 @@ class Currency:
         }
 
         # Label8
-        self.entry = tk.Label(root, text="Gib deinen Betrag an:")
-        self.entry.pack(pady=10)
+        self.entry_label = tk.Label(root, text="Gib deinen Betrag an:")
+        self.entry_label.pack(pady=10)
 
         # Entry-Feld
         self.entry = tk.Entry(root)
@@ -36,6 +37,28 @@ class Currency:
         # Button
         self.button = tk.Button(root, text="Umrechnen", command=self.anzeigen)
         self.button.pack(pady=10)
+
+        #Language button
+        self.language_button = tk.Button(root, text="Englisch", command=self.switch_language)
+        self.language_button.pack(pady=10)
+
+    def switch_language(self):
+        if self.language == "Deutsch":
+            self.language = "English"
+
+            self.button.config(text = "Convert")
+            self.language_button.config(text = "Deutsch")
+            self.waehrung_label.config(text = "Choose your currencies:")
+            self.entry_label.config(text = "Enter your amount:")
+            self.root.title("Currency Converter")
+        else:
+            self.language = "Deutsch"
+
+            self.button.config(text = "Umrechnen")
+            self.language_button.config(text = "Englisch")
+            self.waehrung_label.config(text = "Wähle deine Währungen:")
+            self.entry_label.config(text = "Gib deinen Betrag an:")
+            self.root.title("Währungsumrechner")
 
         # Label für Ausgabe
         self.output_label = tk.Label(root, text="")
