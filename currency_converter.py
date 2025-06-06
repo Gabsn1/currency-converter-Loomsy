@@ -32,7 +32,10 @@ class Currency:
 
         self.waehrung_dropmenu2 = ttk.Combobox(root, values=list(self.optionen.keys()))
         self.waehrung_dropmenu2.pack(pady=5)
-     
+
+        # Label für Ausgabe
+        self.output_label = tk.Label(root, text="")
+        self.output_label.pack(pady=10)
 
         # Button
         self.button = tk.Button(root, text="Umrechnen", command=self.anzeigen)
@@ -60,16 +63,25 @@ class Currency:
             self.entry_label.config(text = "Gib deinen Betrag an:")
             self.root.title("Währungsumrechner")
 
-        # Label für Ausgabe
-        self.output_label = tk.Label(root, text="")
-        self.output_label.pack(pady=10)
+        
 
     def anzeigen(self):
         name = float(self.entry.get()) 
-        waehrung1 = self.waehrung_dropmenu1.get()  
-        waehrung2 = self.waehrung_dropmenu2.get()
-        value = (name/self.optionen[waehrung1]) * self.optionen[waehrung2]   
-        self.output_label.config(text=f"{round(value,2)}")
+        while True:
+            try:
+                waehrung1 = self.waehrung_dropmenu1.get()  
+                waehrung2 = self.waehrung_dropmenu2.get()
+                value = (name/self.optionen[waehrung1]) * self.optionen[waehrung2]   
+                self.output_label.config(text=f"{round(value,2)}")
+            except KeyError:
+                if self.language == "Deutsch":
+                    self.output_label.config(text="Bitte wähle gültige Währungen aus.")
+                else:
+                    self.output_label.config(text="Please select valid currencies.")
+                return
+
+            
+
 
 # Dictionary außerhalb der Klasse bleibt unverändert
 
